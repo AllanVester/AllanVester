@@ -7,3 +7,4 @@ jobs:
   apcoa:
     name: Apcoa
     uses: ./.github/workflows/apcoa.yml
+    secrets: inherit
