@@ -1,0 +1,9 @@
+name: Main Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  apcoa:
+    name: Apcoa
+    uses: ./.github/workflows/apcoa.yml

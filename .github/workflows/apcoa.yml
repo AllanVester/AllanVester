@@ -1,0 +1,27 @@
+name: Apcoa
+on:
+  workflow_dispatch:
+
+jobs:
+  apcoa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Apcoa repository
+        uses: actions/checkout@v5
+        with:
+          repository: "${{ github.repository_owner }}/apcoa-parking"
+          path: "${{ github.workspace }}/"
+          token: "${{ secrets.PAT }}"
+
+      - name: Install Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.x'
+
+      - name: Install Python dependencies
+        run: |
+          pip install -r ${{ github.workspace }}/requirements.txt
+
+      - name: Run Apcoa script
+        run: |
+          python ${{ github.workspace }}/apcoa.py
