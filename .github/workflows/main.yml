@@ -4,7 +4,233 @@ on:
   workflow_dispatch:
 
 jobs:
+  # ---- JOBS ---- #
   apcoa:
     name: Apcoa
+    if: ${{ needs.timegate.outputs.apcoa_ok == 'true' }}
     uses: ./.github/workflows/apcoa.yml
+    needs: apcoa-timegate
     secrets: inherit
+
+  # dagens-ordnet:
+  #   name: Dagens Ordnet
+  #   if: ${{ needs.timegate.outputs.dagens_ordnet_ok == 'true' }}
+  #   uses: ./.github/workflows/dagens-ordnet.yml
+  #   needs: dagens-ordnet-timegate
+  #   secrets: inherit
+
+  # dba:
+  #   name: DBA
+  #   uses: ./.github/workflows/dba.yml
+  #   secrets: inherit
+
+  # dba-selenium:
+  #   name: DBA Selenium
+  #   uses: ./.github/workflows/dba-selenium.yml
+  #   secrets: inherit
+
+  digitaleksamen-stads:
+    name: DigitalEksamen-STADS
+    uses: ./.github/workflows/digitaleksamen-stads.yml
+    secrets: inherit
+
+  # dropbox:
+  #   name: Dropbox
+  #   uses: ./.github/workflows/dropbox.yml
+  #   secrets: inherit
+
+  edri:
+    name: EDRI
+    uses: ./.github/workflows/edri.yml
+    secrets: inherit
+
+  # f-kult:
+  #   name: F-Kult
+  #   if: ${{ needs.timegate.outputs.daily_midnight_ok == 'true' }}
+  #   uses: ./.github/workflows/f-kult.yml
+  #   secrets: inherit
+
+  # facebook:
+  #   name: Facebook
+  #   if: ${{ needs.timegate.outputs.quarter_hour_ok == 'true' }}
+  #   uses: ./.github/workflows/facebook.yml
+  #   secrets: inherit
+
+  # GG.deals:
+  #   name: GG.deals
+  #   uses: ./.github/workflows/gg.deals.yml
+  #   secrets: inherit
+  
+  hitman-elusive-target:
+    name: Hitman Elusive Target
+    if: ${{ needs.timegate.outputs.hitman_elusive_target_ok == 'true' }}
+    uses: ./.github/workflows/hitman-elusive-target.yml
+    secrets: inherit
+
+  hyundai-update:
+    name: Hyundai Update
+    uses: ./.github/workflows/hyundai-update.yml
+    secrets: inherit
+
+  # instagram-story-downloader:
+  #   name: Instagram Story Downloader
+  #   uses: ./.github/workflows/instagram-story-downloader.yml
+  #   secrets: inherit
+
+  # merete:
+  #   name: Merete
+  #   if: ${{ needs.timegate.outputs.merete_ok == 'true' }}
+  #   uses: ./.github/workflows/merete.yml
+  #   secrets: inherit
+
+  # merete-eh:
+  #   name: Merete (Extended Hours)
+  #   if: ${{ needs.timegate.outputs.merete_ok == 'true' }}
+  #   uses: ./.github/workflows/merete-eh.yml
+  #   secrets: inherit
+
+  mongodb:
+    name: MongoDB
+    if: ${{ needs.timegate.outputs.monthly_first_midnight_ok == 'true' }}
+    uses: ./.github/workflows/mongodb.yml
+    secrets: inherit
+
+  monta:
+    name: Monta
+    if: ${{ needs.timegate.outputs.every12h_ok == 'true' }}
+    uses: ./.github/workflows/monta.yml
+    secrets: inherit
+
+  overleaf:
+    name: Overleaf
+    if: ${{ needs.timegate.outputs.half_hour_ok == 'true' }}
+    uses: ./.github/workflows/overleaf.yml
+    secrets: inherit
+
+  # prime-gaming:
+  #   name: Prime Gaming
+  #   if: ${{ needs.timegate.outputs.daily_midnight_ok == 'true' }}
+  #   uses: ./.github/workflows/prime-gaming.yml
+  #   secrets: inherit
+
+  # reels-downloader:
+  #   name: Reels Downloader
+  #   uses: ./.github/workflows/reels-downloader.yml
+  #   secrets: inherit
+
+  # simon:
+  #   name: Simon
+  #   if: ${{ needs.timegate.outputs.simon_ok == 'true' }}
+  #   uses: ./.github/workflows/simon.yml
+  #   secrets: inherit
+
+  studienumre:
+    name: Studienumre
+    if: ${{ needs.timegate.outputs.daily_midnight_ok == 'true' }}
+    uses: ./.github/workflows/studienumre.yml
+    secrets: inherit
+
+  testflight:
+    name: TestFlight
+    uses: ./.github/workflows/testflight.yml
+    secrets: inherit
+
+  twitch-drops-tracker:
+    name: Twitch Drops Tracker
+    uses: ./.github/workflows/twitch-drops-tracker.yml
+    secrets: inherit
+
+  twitch-vod-finder:
+    name: Twitch VOD Finder
+    uses: ./.github/workflows/twitch-vod-finder.yml
+    secrets: inherit
+
+  # ---- TIMEGATE ---- #
+  timegate:
+    name: Timegates
+    runs-on: ubuntu-latest
+    outputs:
+      quarter_hour_ok: ${{ steps.timegate.outputs.quarter_hour_ok }}
+      half_hour_ok: ${{ steps.timegate.outputs.half_hour_ok }}
+      hourly_ok: ${{ steps.timegate.outputs.hourly_ok }}
+      every12h_ok: ${{ steps.timegate.outputs.every12h_ok }}
+      daily_midnight_ok: ${{ steps.timegate.outputs.daily_midnight_ok }}
+      monthly_first_midnight_ok: ${{ steps.timegate.outputs.monthly_first_midnight_ok }}
+
+      apcoa_ok: ${{ steps.timegate.outputs.apcoa_ok }}
+      dagens_ordnet_ok: ${{ steps.timegate.outputs.dagens_ordnet_ok }}
+      hitman_elusive_target_ok: ${{ steps.timegate.outputs.hitman_elusive_target_ok }}
+      merete_ok: ${{ steps.timegate.outputs.merete_ok }}
+      simon_ok: ${{ steps.timegate.outputs.simon_ok }}
+    steps:
+      - id: timegate
+        run: |
+          # Settings
+          tz="Europe/Copenhagen"
+          now=$(TZ=$tz date +%H:%M)
+          dow=$(TZ=$tz date +%u)
+          hour=$(TZ=$tz date +%H)
+          min=$(TZ=$tz date +%M)
+          dom=$(TZ=$tz date +%d)
+
+          # Defaults
+          {
+            echo "quarter_hour_ok=false"
+            echo "half_hour_ok=false"
+            echo "hourly_ok=false"
+            echo "every12h_ok=false"
+            echo "daily_midnight_ok=false"
+            echo "monthly_first_midnight_ok=false"
+
+            echo "apcoa_ok=false"
+            echo "dagens_ordnet_ok=false"
+            echo "hitman_elusive_target_ok=false"
+            echo "merete_ok=false"
+            echo "simon_ok=false"
+          } >> "$GITHUB_OUTPUT"
+
+          # Gates
+          if (( 10#$min % 15 == 0 )); then
+            echo "quarter_hour_ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
+          if (( 10#$min % 30 == 0 )); then
+            echo "half_hour_ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
+          if [[ "$min" == "00" ]]; then
+            echo "hourly_ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
+          if [[ "$min" == "00" ]] && (( 10#$hour % 12 == 0 )); then
+            echo "every12h_ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
+          if [[ "$hour" == "00" && "$min" == "00" ]]; then
+            echo "daily_midnight_ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
+          if [[ "$min" == "00" && "$hour" == "00" ]] && (( 10#$dom == 1 )); then
+            echo "monthly_first_midnight_ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
+          # Custom Gates
+          if [[ "$now" == "07:45" && "$dow" -le 5 ]]; then
+            echo "apcoa_ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
+          if [[ "$now" == "11:00" && "$dow" -le 5 ]]; then
+            echo "dagens_ordnet_ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
+          if [[ "$now" == "14:00" ]]; then
+            echo "hitman_elusive_target_ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
+          if [[ "$dow" -le 5 ]]; then
+            echo "merete_ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
+          if [[ "$now" == "09:00" && "$dow" -le 5 ]]; then
+            echo "simon_ok=true" >> "$GITHUB_OUTPUT"
+          fi

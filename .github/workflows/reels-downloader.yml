@@ -1,17 +1,17 @@
-name: Apcoa
+name: Reels Downloader
 
 on:
   workflow_call:
   workflow_dispatch:
 
 jobs:
-  apcoa:
+  reels-downloader:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Apcoa repository
+      - name: Checkout Reels Downloader repository
         uses: actions/checkout@v5
         with:
-          repository: "${{ github.repository_owner }}/apcoa-parking"
+          repository: "${{ github.repository_owner }}/reels-downloader"
           path: "${{ github.workspace }}/"
           token: "${{ secrets.PAT }}"
 
@@ -24,6 +24,6 @@ jobs:
         run: |
           pip install -r ${{ github.workspace }}/requirements.txt
 
-      - name: Run Apcoa script
+      - name: Run Reels Downloader script
         run: |
-          python ${{ github.workspace }}/apcoa.py
+          python ${{ github.workspace }}/reels_downloader.py

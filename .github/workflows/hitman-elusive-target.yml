@@ -1,17 +1,17 @@
-name: Apcoa
+name: Hitman Elusive Target
 
 on:
   workflow_call:
   workflow_dispatch:
 
 jobs:
-  apcoa:
+  hitman-elusive-target:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Apcoa repository
+      - name: Checkout Hitman Elusive Target repository
         uses: actions/checkout@v5
         with:
-          repository: "${{ github.repository_owner }}/apcoa-parking"
+          repository: "${{ github.repository_owner }}/hitman-elusive-target"
           path: "${{ github.workspace }}/"
           token: "${{ secrets.PAT }}"
 
@@ -24,6 +24,6 @@ jobs:
         run: |
           pip install -r ${{ github.workspace }}/requirements.txt
 
-      - name: Run Apcoa script
+      - name: Run Hitman Elusive Target script
         run: |
-          python ${{ github.workspace }}/apcoa.py
+          python ${{ github.workspace }}/hitman_elusive_target.py

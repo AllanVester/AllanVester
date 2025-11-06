@@ -1,17 +1,17 @@
-name: Apcoa
+name: Overleaf
 
 on:
   workflow_call:
   workflow_dispatch:
 
 jobs:
-  apcoa:
+  overleaf:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Apcoa repository
+      - name: Checkout Overleaf repository
         uses: actions/checkout@v5
         with:
-          repository: "${{ github.repository_owner }}/apcoa-parking"
+          repository: "${{ github.repository_owner }}/overleaf-checker"
           path: "${{ github.workspace }}/"
           token: "${{ secrets.PAT }}"
 
@@ -24,6 +24,6 @@ jobs:
         run: |
           pip install -r ${{ github.workspace }}/requirements.txt
 
-      - name: Run Apcoa script
+      - name: Run Overleaf script
         run: |
-          python ${{ github.workspace }}/apcoa.py
+          python ${{ github.workspace }}/Overleaf.py

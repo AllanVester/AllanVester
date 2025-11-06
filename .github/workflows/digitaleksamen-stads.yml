@@ -1,17 +1,17 @@
-name: Apcoa
+name: DigitalEksamen-STADS
 
 on:
   workflow_call:
   workflow_dispatch:
 
 jobs:
-  apcoa:
+  digitaleksamen-stads:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Apcoa repository
+      - name: Checkout DigitalEksamen-STADS repository
         uses: actions/checkout@v5
         with:
-          repository: "${{ github.repository_owner }}/apcoa-parking"
+          repository: "${{ github.repository_owner }}/DigitalEksamen-STADS"
           path: "${{ github.workspace }}/"
           token: "${{ secrets.PAT }}"
 
@@ -24,6 +24,6 @@ jobs:
         run: |
           pip install -r ${{ github.workspace }}/requirements.txt
 
-      - name: Run Apcoa script
+      - name: Run DigitalEksamen-STADS script
         run: |
-          python ${{ github.workspace }}/apcoa.py
+          python ${{ github.workspace }}/DigitalEksamen-STADS.py

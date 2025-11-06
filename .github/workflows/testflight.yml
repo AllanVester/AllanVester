@@ -1,17 +1,17 @@
-name: Apcoa
+name: Testflight
 
 on:
   workflow_call:
   workflow_dispatch:
 
 jobs:
-  apcoa:
+  testflight:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Apcoa repository
+      - name: Checkout Testflight repository
         uses: actions/checkout@v5
         with:
-          repository: "${{ github.repository_owner }}/apcoa-parking"
+          repository: "${{ github.repository_owner }}/Apple-Testflight-Bot"
           path: "${{ github.workspace }}/"
           token: "${{ secrets.PAT }}"
 
@@ -24,6 +24,6 @@ jobs:
         run: |
           pip install -r ${{ github.workspace }}/requirements.txt
 
-      - name: Run Apcoa script
+      - name: Run Testflight script
         run: |
-          python ${{ github.workspace }}/apcoa.py
+          python ${{ github.workspace }}/Testflight.py

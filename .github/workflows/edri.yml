@@ -1,17 +1,17 @@
-name: Apcoa
+name: EDRI
 
 on:
   workflow_call:
   workflow_dispatch:
 
 jobs:
-  apcoa:
+  edri:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Apcoa repository
+      - name: Checkout EDRI repository
         uses: actions/checkout@v5
         with:
-          repository: "${{ github.repository_owner }}/apcoa-parking"
+          repository: "${{ github.repository_owner }}/EDRI-price-checker"
           path: "${{ github.workspace }}/"
           token: "${{ secrets.PAT }}"
 
@@ -24,6 +24,6 @@ jobs:
         run: |
           pip install -r ${{ github.workspace }}/requirements.txt
 
-      - name: Run Apcoa script
+      - name: Run EDRI script
         run: |
-          python ${{ github.workspace }}/apcoa.py
+          python ${{ github.workspace }}/EDRI.py
