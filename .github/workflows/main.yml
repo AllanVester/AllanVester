@@ -56,9 +56,9 @@ jobs:
   #   uses: ./.github/workflows/facebook.yml
   #   secrets: inherit
 
-  # GG.deals:
+  # gg-deals:
   #   name: GG.deals
-  #   uses: ./.github/workflows/gg.deals.yml
+  #   uses: ./.github/workflows/gg-deals.yml
   #   secrets: inherit
   
   hitman-elusive-target:

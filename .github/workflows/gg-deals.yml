@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  gg.deals:
+  gg-deals:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout GG.deals repository
