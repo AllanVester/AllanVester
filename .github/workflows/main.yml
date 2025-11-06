@@ -9,14 +9,14 @@ jobs:
     name: Apcoa
     if: ${{ needs.timegate.outputs.apcoa_ok == 'true' }}
     uses: ./.github/workflows/apcoa.yml
-    needs: apcoa-timegate
+    needs: timegate
     secrets: inherit
 
   # dagens-ordnet:
   #   name: Dagens Ordnet
   #   if: ${{ needs.timegate.outputs.dagens_ordnet_ok == 'true' }}
   #   uses: ./.github/workflows/dagens-ordnet.yml
-  #   needs: dagens-ordnet-timegate
+  #   needs: timegate
   #   secrets: inherit
 
   # dba:
@@ -48,12 +48,14 @@ jobs:
   #   name: F-Kult
   #   if: ${{ needs.timegate.outputs.daily_midnight_ok == 'true' }}
   #   uses: ./.github/workflows/f-kult.yml
+  #   needs: timegate
   #   secrets: inherit
 
   # facebook:
   #   name: Facebook
   #   if: ${{ needs.timegate.outputs.quarter_hour_ok == 'true' }}
   #   uses: ./.github/workflows/facebook.yml
+  #   needs: timegate
   #   secrets: inherit
 
   # gg-deals:
@@ -65,6 +67,7 @@ jobs:
     name: Hitman Elusive Target
     if: ${{ needs.timegate.outputs.hitman_elusive_target_ok == 'true' }}
     uses: ./.github/workflows/hitman-elusive-target.yml
+    needs: timegate
     secrets: inherit
 
   hyundai-update:
@@ -81,36 +84,42 @@ jobs:
   #   name: Merete
   #   if: ${{ needs.timegate.outputs.merete_ok == 'true' }}
   #   uses: ./.github/workflows/merete.yml
+  #   needs: timegate
   #   secrets: inherit
 
   # merete-eh:
   #   name: Merete (Extended Hours)
   #   if: ${{ needs.timegate.outputs.merete_ok == 'true' }}
   #   uses: ./.github/workflows/merete-eh.yml
+  #   needs: timegate
   #   secrets: inherit
 
   mongodb:
     name: MongoDB
     if: ${{ needs.timegate.outputs.monthly_first_midnight_ok == 'true' }}
     uses: ./.github/workflows/mongodb.yml
+    needs: timegate
     secrets: inherit
 
   monta:
     name: Monta
     if: ${{ needs.timegate.outputs.every12h_ok == 'true' }}
     uses: ./.github/workflows/monta.yml
+    needs: timegate
     secrets: inherit
 
   overleaf:
     name: Overleaf
     if: ${{ needs.timegate.outputs.half_hour_ok == 'true' }}
     uses: ./.github/workflows/overleaf.yml
+    needs: timegate
     secrets: inherit
 
   # prime-gaming:
   #   name: Prime Gaming
   #   if: ${{ needs.timegate.outputs.daily_midnight_ok == 'true' }}
   #   uses: ./.github/workflows/prime-gaming.yml
+  #   needs: timegate
   #   secrets: inherit
 
   # reels-downloader:
@@ -122,12 +131,14 @@ jobs:
   #   name: Simon
   #   if: ${{ needs.timegate.outputs.simon_ok == 'true' }}
   #   uses: ./.github/workflows/simon.yml
+  #   needs: timegate
   #   secrets: inherit
 
   studienumre:
     name: Studienumre
     if: ${{ needs.timegate.outputs.daily_midnight_ok == 'true' }}
     uses: ./.github/workflows/studienumre.yml
+    needs: timegate
     secrets: inherit
 
   testflight:
