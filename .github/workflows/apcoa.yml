@@ -1,6 +1,6 @@
 name: Apcoa
 on:
-  workflow_dispatch:
+  workflow_call:
 
 jobs:
   apcoa:
