@@ -5,12 +5,12 @@ on:
 
 jobs:
   # ---- JOBS ---- #
-  apcoa:
-    name: Apcoa
-    if: ${{ needs.timegate.outputs.apcoa_ok == 'true' }}
-    uses: ./.github/workflows/apcoa.yml
-    needs: timegate
-    secrets: inherit
+  # apcoa:
+  #   name: Apcoa
+  #   if: ${{ needs.timegate.outputs.apcoa_ok == 'true' }}
+  #   uses: ./.github/workflows/apcoa.yml
+  #   needs: timegate
+  #   secrets: inherit
 
   # dagens-ordnet:
   #   name: Dagens Ordnet
@@ -108,12 +108,12 @@ jobs:
     needs: timegate
     secrets: inherit
 
-  overleaf:
-    name: Overleaf
-    if: ${{ needs.timegate.outputs.half_hour_ok == 'true' }}
-    uses: ./.github/workflows/overleaf.yml
-    needs: timegate
-    secrets: inherit
+  # overleaf:
+  #   name: Overleaf
+  #   if: ${{ needs.timegate.outputs.half_hour_ok == 'true' }}
+  #   uses: ./.github/workflows/overleaf.yml
+  #   needs: timegate
+  #   secrets: inherit
 
   # prime-gaming:
   #   name: Prime Gaming
